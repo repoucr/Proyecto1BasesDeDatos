@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="476.0" prefWidth="541.0" style="-fx-background-color: #66CC66;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto1basesdedatos.FXMLDocumentController">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <TextArea layoutX="14.0" layoutY="232.0" prefHeight="186.0" prefWidth="514.0" />
+      <Button layoutX="475.0" layoutY="431.0" mnemonicParsing="false" onAction="#cargarButton" text="Cargar" />
+      <Label layoutX="34.0" layoutY="22.0" text="Generador de Script SQL">
+         <font>
+            <Font name="Yu Gothic Light" size="39.0" />
+         </font>
+      </Label>
+      <Button layoutX="14.0" layoutY="431.0" mnemonicParsing="false" text="Acerca de" />
+    </children>
+</AnchorPane>
