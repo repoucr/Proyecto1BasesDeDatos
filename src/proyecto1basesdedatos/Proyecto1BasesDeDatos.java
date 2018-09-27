@@ -26,6 +26,7 @@ public class Proyecto1BasesDeDatos extends Application {
         
         stage.setScene(scene);
 
+        stage.show();
     }
 
     /**
@@ -33,6 +34,7 @@ public class Proyecto1BasesDeDatos extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        
 
 //        Random random = new Random();
 //        System.out.println(random.generaPalabras());
