@@ -25,20 +25,17 @@ public class Proyecto1BasesDeDatos extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
-        stage.show();
-        
-        
-       
+
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        launch(args);
+        launch(args);
 
-        Random random = new Random();
-        System.out.println(random.generaPalabras());
+//        Random random = new Random();
+//        System.out.println(random.generaPalabras());
     }
     
 }

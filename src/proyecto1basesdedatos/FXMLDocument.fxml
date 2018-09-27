@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="476.0" prefWidth="541.0" style="-fx-background-color: #66CC66;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto1basesdedatos.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="cargarButton" onMouseClicked="#cargarButton" prefHeight="476.0" prefWidth="541.0" style="-fx-background-color: #66CC66;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto1basesdedatos.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <TextArea layoutX="14.0" layoutY="232.0" prefHeight="186.0" prefWidth="514.0" />
-      <Button layoutX="475.0" layoutY="431.0" mnemonicParsing="false" onAction="#cargarButton" text="Cargar" />
+      <TextArea fx:id="jsonInputTextArea" layoutX="14.0" layoutY="232.0" prefHeight="186.0" prefWidth="514.0" />
+      <Button fx:id="cargarButton" layoutX="475.0" layoutY="431.0" mnemonicParsing="false" onAction="#cargarButton" onMouseClicked="#cargarButton" text="Cargar" />
       <Label layoutX="34.0" layoutY="22.0" text="Generador de Script SQL">
          <font>
             <Font name="Yu Gothic Light" size="39.0" />
