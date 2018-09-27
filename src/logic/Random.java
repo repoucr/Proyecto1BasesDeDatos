@@ -17,12 +17,12 @@ public class Random {
   
   public void generaPalabras(){
       
-      String texto = loremIpsum.getWords( 50 );
+      String texto = loremIpsum.getWords( 10000 );
     
-//      int  inicioTexto = (int) (Math.random()*1000);
+      int  inicioTexto = (int) (Math.random()*1000);
       int  finalTexto = (int)(Math.random()*1000);
       
-      String aleatorio = texto.substring(0, 6);
+      String aleatorio = texto.substring(inicioTexto,inicioTexto+7);
       
       System.out.println(aleatorio);
   }
