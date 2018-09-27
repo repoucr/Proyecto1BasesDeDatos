@@ -10,21 +10,24 @@ import de.svenjacobs.loremipsum.LoremIpsum;
  * @author Wilmata
  */
 public class Random {
+    
     private LoremIpsum loremIpsum;
+    
   public Random() {
+      
     this.loremIpsum = new LoremIpsum();
   }
   
-  public void generaPalabras(){
+  public String generaPalabras(){
       
-      String texto = loremIpsum.getWords( 10000 );
+      String texto = loremIpsum.getWords(1500);
     
-      int  inicioTexto = (int) (Math.random()*1000);
-      int  finalTexto = (int)(Math.random()*1000);
+      int  inicioTexto = (int) (Math.random()*1500);
+      int finalAleatorio = (int) (Math.random() * 7) +4;
       
-      String aleatorio = texto.substring(inicioTexto,inicioTexto+7);
+      String aleatorio = texto.substring(inicioTexto, inicioTexto + finalAleatorio);
       
-      System.out.println(aleatorio);
+      return aleatorio;
   }
   
   

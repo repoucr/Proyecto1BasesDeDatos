@@ -38,7 +38,7 @@ public class Proyecto1BasesDeDatos extends Application {
 //        launch(args);
 
         Random random = new Random();
-        random.generaPalabras();
+        System.out.println(random.generaPalabras());
     }
     
 }
