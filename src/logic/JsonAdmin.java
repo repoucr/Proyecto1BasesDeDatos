@@ -50,7 +50,7 @@ public class JsonAdmin {
             JSONArray jsonArrayAttributes = (JSONArray) jsonObject.get("Attributes");  
             
             LinkedList<Attributes> tempAttributesList = new LinkedList<>();
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < jsonArrayAttributes.size(); j++) {
                 JSONObject tempJOAttributes = (JSONObject) jsonArrayAttributes.get(j);
                 Attributes tempAttributes = new Attributes();
                 tempAttributes.setName(tempJOAttributes.get("Name").toString());
