@@ -5,6 +5,7 @@
  */
 package proyecto1basesdedatos;
 
+import domain.JsonFile;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import logic.JsonAdmin;
 
 /**
  *
@@ -30,8 +32,11 @@ public class FXMLDocumentController implements Initializable {
 //    private Button cargarButton;
 //    
 //    
+    JsonAdmin jsonAdmin = new JsonAdmin();
+    
     public void cargarButton(ActionEvent event) throws Exception{
-        System.out.println("Hello");
+      JsonFile jsonFile = jsonAdmin.readJson(jsonInputTextArea.getText());
+      
     }
     
     @Override

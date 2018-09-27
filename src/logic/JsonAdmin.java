@@ -28,10 +28,10 @@ import org.json.simple.parser.ParseException;
  */
 public class JsonAdmin {
     
-    public JsonFile readJson(File json) throws ParseException, FileNotFoundException, IOException{
+    public JsonFile readJson(String json) throws ParseException, FileNotFoundException, IOException{
         
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader(json));
+        Object obj = parser.parse(json);
         JSONObject jsonObject = (JSONObject) obj;
         JSONArray jsonArrayEntitySets = (JSONArray) jsonObject.get("EntitySets");  
         JSONArray jsonArrayRelationshipSets = (JSONArray) jsonObject.get("RelationshipSets");
