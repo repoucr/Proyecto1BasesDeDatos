@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import logic.Random;
 
 /**
  *
@@ -25,13 +26,19 @@ public class Proyecto1BasesDeDatos extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
+        
+       
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+//        launch(args);
+
+        Random random = new Random();
+        random.generaPalabras();
     }
     
 }
