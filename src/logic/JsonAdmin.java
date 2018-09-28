@@ -46,9 +46,10 @@ public class JsonAdmin {
             EntitySets tempEntitySets = new EntitySets();
             tempEntitySets.setName(tempJOEntitySets.get("Name").toString());
             tempEntitySets.setType(tempJOEntitySets.get("Type").toString());
-            tempEntitySets.setParentEntitySet(tempJOEntitySets.get("Type").toString());
-            JSONArray jsonArrayAttributes = (JSONArray) jsonObject.get("Attributes");  
-            
+            if (tempJOEntitySets.get("ParentEntitySet")!=null) {
+                tempEntitySets.setParentEntitySet(tempJOEntitySets.get("ParentEntitySet").toString());
+            }
+            JSONArray jsonArrayAttributes = (JSONArray) tempJOEntitySets.get("Attributes");  
             LinkedList<Attributes> tempAttributesList = new LinkedList<>();
             for (int j = 0; j < jsonArrayAttributes.size(); j++) {
                 JSONObject tempJOAttributes = (JSONObject) jsonArrayAttributes.get(j);
@@ -56,7 +57,16 @@ public class JsonAdmin {
                 tempAttributes.setName(tempJOAttributes.get("Name").toString());
                 tempAttributes.setDomain(tempJOAttributes.get("Domain").toString());
                 tempAttributes.setType(tempJOAttributes.get("Type").toString());
-                tempAttributes.setComponentList((LinkedList) tempJOAttributes.get("ComponentList"));
+                if(tempJOAttributes.get("ComponentList")!=null){
+                    JSONArray jsonArrayComponents = (JSONArray) tempJOAttributes.get("ComponentList");
+                    LinkedList<String> linkedListComponents = new LinkedList<>();
+
+                    for (int k = 0; k < jsonArrayComponents.size(); k++) {
+                         JSONObject tempJOComponent = (JSONObject) jsonArrayComponents.get(k);
+                         linkedListComponents.add(tempJOComponent.toString());
+                    }
+                    tempAttributes.setComponentList(linkedListComponents);
+                }
                 tempAttributes.setIsPrimary((boolean) tempJOAttributes.get("IsPrimary"));
                 tempAttributes.setIsDiscriminator((boolean) tempJOAttributes.get("IsDiscriminator"));
                 tempAttributes.setPrecision(Integer.parseInt(tempJOAttributes.get("Precision").toString()));
@@ -76,31 +86,35 @@ public class JsonAdmin {
             
             LinkedList<DescriptiveAttributes> arrayDescriptiveAttributes = new LinkedList();
             LinkedList<ParticipationEntities> arrayParticipationEntities = new LinkedList();
+            if(tempJORelationshipSets.get("DescriptiveAttributes")!=null){
+                JSONArray jsonArrayDescriptiveAttributes = (JSONArray) tempJORelationshipSets.get("DescriptiveAttributes");
+                for (int j = 0; j < jsonArrayDescriptiveAttributes.size(); j++) {
+                    JSONObject tempJODescriptiveAttributes = (JSONObject)jsonArrayDescriptiveAttributes.get(j);
+                    DescriptiveAttributes tempDescriptiveAttributes = new DescriptiveAttributes();
+                    tempDescriptiveAttributes.setName(tempJODescriptiveAttributes.get("Name").toString());
+                    tempDescriptiveAttributes.setDomain(tempJODescriptiveAttributes.get("Domain").toString());
+                    tempDescriptiveAttributes.setType(tempJODescriptiveAttributes.get("Type").toString());
+                    tempDescriptiveAttributes.setComponentList((LinkedList) tempJODescriptiveAttributes.get("ComponentList"));
+                    tempDescriptiveAttributes.setIsPrimary((boolean) tempJODescriptiveAttributes.get("IsPrimary"));
+                    tempDescriptiveAttributes.setIsDiscriminator((boolean) tempJODescriptiveAttributes.get("IsDiscriminator"));
+                    tempDescriptiveAttributes.setPrecision(Integer.parseInt(tempJODescriptiveAttributes.get("Precision").toString()));
+                    arrayDescriptiveAttributes.add(tempDescriptiveAttributes);
+                }
+                tempRelationshipSets.setDescriptiveAttributes(arrayDescriptiveAttributes);
+            }
             
-            JSONArray jsonArrayDescriptiveAttributes = (JSONArray) tempJORelationshipSets.get("DescriptiveAttributes");
-            for (int j = 0; j < jsonArrayDescriptiveAttributes.size(); j++) {
-                JSONObject tempJODescriptiveAttributes = (JSONObject)jsonArrayDescriptiveAttributes.get(j);
-                DescriptiveAttributes tempDescriptiveAttributes = new DescriptiveAttributes();
-                tempDescriptiveAttributes.setName(tempJODescriptiveAttributes.get("Name").toString());
-                tempDescriptiveAttributes.setDomain(tempJODescriptiveAttributes.get("Domain").toString());
-                tempDescriptiveAttributes.setType(tempJODescriptiveAttributes.get("Type").toString());
-                tempDescriptiveAttributes.setComponentList((LinkedList) tempJODescriptiveAttributes.get("ComponentList"));
-                tempDescriptiveAttributes.setIsPrimary((boolean) tempJODescriptiveAttributes.get("IsPrimary"));
-                tempDescriptiveAttributes.setIsDiscriminator((boolean) tempJODescriptiveAttributes.get("IsDiscriminator"));
-                tempDescriptiveAttributes.setPrecision(Integer.parseInt(tempJODescriptiveAttributes.get("Precision").toString()));
-                arrayDescriptiveAttributes.add(tempDescriptiveAttributes);
+            if(tempJORelationshipSets.get("ParticipationEntities")!=null){
+                JSONArray jsonArrayParticipationEntities = (JSONArray) tempJORelationshipSets.get("ParticipationEntities");      
+                for (int j = 0; j < jsonArrayParticipationEntities.size(); j++) {
+                    JSONObject tempJOParticipationEntities = (JSONObject)jsonArrayParticipationEntities.get(j);
+                    ParticipationEntities tempParticipationEntities = new ParticipationEntities();
+                    tempParticipationEntities.setEntityName(tempJOParticipationEntities.get("EntityName").toString());
+                    tempParticipationEntities.setCardinality(tempJOParticipationEntities.get("Cardinality").toString());
+                    tempParticipationEntities.setParticipationType(tempJOParticipationEntities.get("ParticipationType").toString());
+                    arrayParticipationEntities.add(tempParticipationEntities);
+                }
+                tempRelationshipSets.setParticipationEntities(arrayParticipationEntities);
             }
-            JSONArray jsonArrayParticipationEntities = (JSONArray) tempJORelationshipSets.get("ParticipationEntities");      
-            for (int j = 0; j < jsonArrayParticipationEntities.size(); j++) {
-                JSONObject tempJOParticipationEntities = (JSONObject)jsonArrayParticipationEntities.get(j);
-                ParticipationEntities tempParticipationEntities = new ParticipationEntities();
-                tempParticipationEntities.setEntityName(tempJOParticipationEntities.get("EntityName").toString());
-                tempParticipationEntities.setCardinality(tempJOParticipationEntities.get("Cardinality").toString());
-                tempParticipationEntities.setParticipationType(tempJOParticipationEntities.get("ParticipationType").toString());
-                arrayParticipationEntities.add(tempParticipationEntities);
-            }
-            tempRelationshipSets.setParticipationEntities(arrayParticipationEntities);
-            tempRelationshipSets.setDescriptiveAttributes(arrayDescriptiveAttributes);
             relationshipSetList.add(tempRelationshipSets);
             
            

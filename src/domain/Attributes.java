@@ -16,14 +16,22 @@ public class Attributes {
    private String name;
    private String domain;
    private String type;
-   private LinkedList componentList;
+   private LinkedList<String> componentList;
    private boolean isPrimary;
    private boolean isDiscriminator;
    private int precision;
 
-    @Override
-    public String toString() {
-        return "Attributes{" + "name=" + name + ", domain=" + domain + ", type=" + type + ", componentList=" + componentList + ", isPrimary=" + isPrimary + ", isDiscriminator=" + isDiscriminator + ", precision=" + precision + '}';
+    public Attributes() {
+    }
+
+    public Attributes(String name, String domain, String type, LinkedList<String> componentList, boolean isPrimary, boolean isDiscriminator, int precision) {
+        this.name = name;
+        this.domain = domain;
+        this.type = type;
+        this.componentList = componentList;
+        this.isPrimary = isPrimary;
+        this.isDiscriminator = isDiscriminator;
+        this.precision = precision;
     }
 
     public String getName() {
@@ -50,11 +58,11 @@ public class Attributes {
         this.type = type;
     }
 
-    public LinkedList getComponentList() {
+    public LinkedList<String> getComponentList() {
         return componentList;
     }
 
-    public void setComponentList(LinkedList componentList) {
+    public void setComponentList(LinkedList<String> componentList) {
         this.componentList = componentList;
     }
 
@@ -81,5 +89,6 @@ public class Attributes {
     public void setPrecision(int precision) {
         this.precision = precision;
     }
+
     
 }
