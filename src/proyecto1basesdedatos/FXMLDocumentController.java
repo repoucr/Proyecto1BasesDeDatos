@@ -15,33 +15,33 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import logic.JsonAdmin;
+import logic.RelationalModelGenerator;
 
 /**
  *
  * @author Wilmata
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     @FXML
     private Label label;
-    
+
     @FXML
     private TextArea jsonInputTextArea;
-    
-//    @FXML
-//    private Button cargarButton;
-//    
-//    
+    public static JsonFile jsonFile = new JsonFile();
+
     JsonAdmin jsonAdmin = new JsonAdmin();
     
-    public void cargarButton(ActionEvent event) throws Exception{
-      JsonFile jsonFile = jsonAdmin.readJson(jsonInputTextArea.getText());
-      
-    }
+    RelationalModelGenerator relationalModelGenerator = new  RelationalModelGenerator();
     
+    public void cargarButton(ActionEvent event) throws Exception {
+        jsonFile = jsonAdmin.readJson(jsonInputTextArea.getText());
+        relationalModelGenerator.entityGenerator();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
