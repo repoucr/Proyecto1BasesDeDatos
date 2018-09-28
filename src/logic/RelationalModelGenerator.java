@@ -5,6 +5,7 @@
  */
 package logic;
 
+import domain.Attributes;
 import domain.EntitySets;
 import domain.JsonFile;
 import java.util.LinkedList;
@@ -23,7 +24,13 @@ public class RelationalModelGenerator {
         LinkedList <EntitySets> entitySetList =  jsonFileObject.getEntitySets();
         
         for (int i = 0; i < entitySetList.size(); i++) {
-            
+            EntitySets tempEntitySets = entitySetList.get(i);
+            relationalModelText += "CREATE TABLE" + tempEntitySets.getName()+"(\n" ;
+            LinkedList<Attributes> attributesList = tempEntitySets.getAttributes();
+            for (int j = 0; j < attributesList.size(); j++) {
+                Attributes tempAttributes = attributesList.get(j);
+                relationalModelText += 
+            }
         }
     }
     
