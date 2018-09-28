@@ -17,7 +17,7 @@ import static proyecto1basesdedatos.FXMLDocumentController.jsonFile;
  */
 public class RelationalModelGenerator {
     
-    private String relationalModelText;
+    private String relationalModelText = "";
     
     public void entityGenerator(){
         JsonFile jsonFileObject = jsonFile;
@@ -25,13 +25,15 @@ public class RelationalModelGenerator {
         
         for (int i = 0; i < entitySetList.size(); i++) {
             EntitySets tempEntitySets = entitySetList.get(i);
-            relationalModelText += "CREATE TABLE" + tempEntitySets.getName()+"(\n" ;
+            relationalModelText += "CREATE TABLE " + tempEntitySets.getName()+"( \n" ;
             LinkedList<Attributes> attributesList = tempEntitySets.getAttributes();
             for (int j = 0; j < attributesList.size(); j++) {
                 Attributes tempAttributes = attributesList.get(j);
-                relationalModelText += 
+                relationalModelText += tempAttributes.getName() + " " + tempAttributes.getDomain() + "( " +tempAttributes.getPrecision() + " ) \n";
             }
+            relationalModelText += " ) \n";
         }
+          System.out.println(relationalModelText);
     }
     
 }
