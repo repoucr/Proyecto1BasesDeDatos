@@ -34,6 +34,11 @@ public class Attributes {
         this.precision = precision;
     }
 
+    @Override
+    public String toString() {
+        return "Attributes{" + "name=" + name + ", domain=" + domain + ", type=" + type + ", componentList=" + componentList + ", isPrimary=" + isPrimary + ", isDiscriminator=" + isDiscriminator + ", precision=" + precision + '}';
+    }
+
     public String getName() {
         return name;
     }
@@ -89,6 +94,8 @@ public class Attributes {
     public void setPrecision(int precision) {
         this.precision = precision;
     }
+
+
 
     
 }

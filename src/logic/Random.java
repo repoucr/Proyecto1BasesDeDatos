@@ -18,16 +18,16 @@ public class Random {
     this.loremIpsum = new LoremIpsum();
   }
   
-  public String generaPalabras(){
+  public String wordGenerator(int size){
       
-      String texto = loremIpsum.getWords(1500);
+      String text = loremIpsum.getWords(1500);
     
-      int  inicioTexto = (int) (Math.random()*1500);
-      int finalAleatorio = (int) (Math.random() * 7) +4;
+      int  startText = (int) (Math.random()*1500);
       
-      String aleatorio = texto.substring(inicioTexto, inicioTexto + finalAleatorio);
       
-      return aleatorio;
+      String randomText = text.substring(startText, startText + size);
+      
+      return randomText;
   }
   
   
