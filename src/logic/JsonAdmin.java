@@ -6,6 +6,7 @@
 package logic;
 
 import domain.Attributes;
+import domain.Component;
 import domain.DescriptiveAttributes;
 import domain.EntitySets;
 import domain.JsonFile;
@@ -59,11 +60,34 @@ public class JsonAdmin {
                 tempAttributes.setType(tempJOAttributes.get("Type").toString());
                 if(tempJOAttributes.get("ComponentList")!=null){
                     JSONArray jsonArrayComponents = (JSONArray) tempJOAttributes.get("ComponentList");
-                    LinkedList<String> linkedListComponents = new LinkedList<>();
+                    LinkedList<Component> linkedListComponents = new LinkedList<>();
 
                     for (int k = 0; k < jsonArrayComponents.size(); k++) {
-                         JSONObject tempJOComponent = (JSONObject) jsonArrayComponents.get(k);
-                         linkedListComponents.add(tempJOComponent.toString());
+                        JSONObject tempJOComponent = (JSONObject) jsonArrayComponents.get(k);
+                        Component tempComponent = new Component();
+                        tempComponent.setName(tempJOComponent.get("Name").toString());
+                        tempComponent.setDomain(tempJOComponent.get("Domain").toString());
+                        tempComponent.setType(tempJOComponent.get("Type").toString());
+                        if(tempJOComponent.get("ComponentList")!=null){
+                            JSONArray jsonArrayComponents2 = (JSONArray) tempJOComponent.get("ComponentList");
+                            LinkedList<Component> linkedListComponents2 = new LinkedList<>();
+                            for (int l = 0; l < jsonArrayComponents2.size(); l++) {
+                                JSONObject tempJOComponent2 = (JSONObject) tempJOComponent.get(l);
+                                Component tempComponent2 = new Component();
+                                tempComponent2.setName(tempJOComponent2.get("Name").toString());
+                                tempComponent2.setDomain(tempJOComponent2.get("Domain").toString());
+                                tempComponent2.setType(tempJOComponent2.get("Type").toString());
+                                tempComponent2.setIsPrimary((boolean) tempJOComponent2.get("IsPrimary"));
+                                tempComponent2.setIsDiscriminator((boolean) tempJOComponent2.get("IsDiscriminator"));
+                                tempComponent2.setPrecision(Integer.parseInt((tempJOComponent2.get("Precision").toString())));
+                                linkedListComponents2.add(tempComponent2);
+                            }  
+                            tempComponent.setComponentList(linkedListComponents2);
+                        }
+                        tempComponent.setIsPrimary((boolean) tempJOComponent.get("IsPrimary"));
+                        tempComponent.setIsDiscriminator((boolean) tempJOComponent.get("IsDiscriminator"));
+                        tempComponent.setPrecision(Integer.parseInt((tempJOComponent.get("Precision").toString())));
+                        linkedListComponents.add(tempComponent);
                     }
                     tempAttributes.setComponentList(linkedListComponents);
                 }

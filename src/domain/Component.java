@@ -6,12 +6,13 @@
 package domain;
 
 import java.util.LinkedList;
+import org.json.simple.JSONObject;
 
 /**
  *
- * @author Wilmata
+ * @author fabian
  */
-public class Attributes {
+public class Component {
     
    private String name;
    private String domain;
@@ -21,10 +22,10 @@ public class Attributes {
    private boolean isDiscriminator;
    private int precision;
 
-    public Attributes() {
+    public Component() {
     }
 
-    public Attributes(String name, String domain, String type, LinkedList<Component> componentList, boolean isPrimary, boolean isDiscriminator, int precision) {
+    public Component(String name, String domain, String type, LinkedList<Component> componentList, boolean isPrimary, boolean isDiscriminator, int precision) {
         this.name = name;
         this.domain = domain;
         this.type = type;
