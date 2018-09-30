@@ -126,6 +126,22 @@ public class JsonAdmin {
                             tempComponent.setName(tempJOComponent.get("Name").toString());
                             tempComponent.setDomain(tempJOComponent.get("Domain").toString());
                             tempComponent.setType(tempJOComponent.get("Type").toString());
+                            if (tempJOComponent.get("Type").toString().equalsIgnoreCase("Composed")) {
+                                JSONArray componentListArray2 = (JSONArray) tempJOComponent.get("ComponentList");
+                                LinkedList<Component> componentList2 = new LinkedList<>();
+                                for (int l = 0; l < componentListArray2.size(); l++) {
+                                    JSONObject tempJOComponent2 = (JSONObject) componentListArray.get(l);
+                                    Component tempComponent2 = new Component();
+                                    tempComponent2.setName(tempJOComponent2.get("Name").toString());
+                                    tempComponent2.setDomain(tempJOComponent2.get("Domain").toString());
+                                    tempComponent2.setType(tempJOComponent2.get("Type").toString());
+                                    tempComponent2.setIsPrimary((boolean) tempJOComponent2.get("IsPrimary"));
+                                    tempComponent2.setIsDiscriminator((boolean) tempJOComponent2.get("IsDiscriminator"));
+                                    tempComponent2.setPrecision(Integer.parseInt(tempJOComponent2.get("Precision").toString()));
+                                    componentList2.add(tempComponent2);
+                                }
+                                tempComponent.setComponentList(componentList2);
+                            }
                             tempComponent.setIsPrimary((boolean) tempJOComponent.get("IsPrimary"));
                             tempComponent.setIsDiscriminator((boolean) tempJOComponent.get("IsDiscriminator"));
                             tempComponent.setPrecision(Integer.parseInt(tempJOComponent.get("Precision").toString()));

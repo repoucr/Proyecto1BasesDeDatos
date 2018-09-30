@@ -5,6 +5,8 @@
  */
 package domain;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author fabian
@@ -13,10 +15,15 @@ public class Table {
     
     private String name;
     private String tableContent;
+    private LinkedList<String> attributes;
 
-    public Table(String name, String tableContent) {
+    public Table() {
+    }
+
+    public Table(String name, String tableContent, LinkedList<String> attributes) {
         this.name = name;
         this.tableContent = tableContent;
+        this.attributes = attributes;
     }
 
     public String getName() {
@@ -35,9 +42,14 @@ public class Table {
         this.tableContent = tableContent;
     }
 
-    public Table() {
+    public LinkedList<String> getAttributes() {
+        return attributes;
     }
-   
+
+    public void setAttributes(LinkedList<String> attributes) {
+        this.attributes = attributes;
+    }
+
     
-    
+
 }
