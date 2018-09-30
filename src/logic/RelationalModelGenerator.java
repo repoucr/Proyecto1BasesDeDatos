@@ -66,8 +66,12 @@ public class RelationalModelGenerator {
             RelationshipSets tempRelationshipSets = relationSetLists.get(i);
             if (tempRelationshipSets.getType().equalsIgnoreCase("Strong")) {
                 Table tempTable = new Table();
+                
+                //no funciona el nombre
                 tempTable.setName(tempRelationshipSets.getName());
                 tempTable.setType(tempRelationshipSets.getType());
+                tempTable.setTableContent("");
+                tempTable.setTableContent(tempTable.getTableContent() + "CREATE TABLE " + tempRelationshipSets.getName() + "( \n");
                 LinkedList<DescriptiveAttributes> tempDescripAttribut = tempRelationshipSets.getDescriptiveAttributes();
                 LinkedList<TableAttributes> attributesList = new LinkedList<>();
                 if (tempDescripAttribut != null) {
