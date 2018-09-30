@@ -71,7 +71,7 @@ public class Attributes {
         this.componentList = componentList;
     }
 
-    public boolean isIsPrimary() {
+    public boolean getIsPrimary() {
         return isPrimary;
     }
 
@@ -79,7 +79,7 @@ public class Attributes {
         this.isPrimary = isPrimary;
     }
 
-    public boolean isIsDiscriminator() {
+    public boolean getIsDiscriminator() {
         return isDiscriminator;
     }
 

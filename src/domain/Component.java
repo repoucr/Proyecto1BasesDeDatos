@@ -67,7 +67,7 @@ public class Component {
         this.componentList = componentList;
     }
 
-    public boolean isIsPrimary() {
+    public boolean getIsPrimary() {
         return isPrimary;
     }
 
@@ -75,7 +75,7 @@ public class Component {
         this.isPrimary = isPrimary;
     }
 
-    public boolean isIsDiscriminator() {
+    public boolean getIsDiscriminator() {
         return isDiscriminator;
     }
 

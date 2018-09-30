@@ -13,13 +13,15 @@ public class TableAttributes {
     
     private String name;
     private String domain;
+    private boolean isPrimary;
 
     public TableAttributes() {
     }
 
-    public TableAttributes(String name, String domain) {
+    public TableAttributes(String name, String domain, boolean isPrimary) {
         this.name = name;
         this.domain = domain;
+        this.isPrimary = isPrimary;
     }
 
     public String getName() {
@@ -37,6 +39,16 @@ public class TableAttributes {
     public void setDomain(String domain) {
         this.domain = domain;
     }
+
+    public boolean isIsPrimary() {
+        return isPrimary;
+    }
+
+    public void setIsPrimary(boolean isPrimary) {
+        this.isPrimary = isPrimary;
+    }
+
+    
 
     
 }

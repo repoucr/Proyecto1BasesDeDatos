@@ -18,9 +18,8 @@ import static proyecto1basesdedatos.FXMLDocumentController.jsonFile;
  *
  * @author Wilmata
  */
-public class RelationalModelGenerator {
 
-    private String relationalModelText = "";
+public class RelationalModelGenerator {
 
     public void entityGenerator() {
         JsonFile jsonFileObject = jsonFile;
@@ -43,9 +42,10 @@ public class RelationalModelGenerator {
                         TableAttributes tempTableAttributes = new TableAttributes();
                         tempTableAttributes.setName(tempAttributes.getName());
                         tempTableAttributes.setDomain(tempAttributes.getDomain());
+                        tempTableAttributes.setIsPrimary(tempAttributes.getIsPrimary());
                         attributesTableList.add(tempTableAttributes);
                         tempTable.setTableContent(tempTable.getTableContent() + tempAttributes.getName() + " " + tempAttributes.getDomain() + "(" + tempAttributes.getPrecision() + ") \n");
-                        if (tempAttributes.isIsPrimary() == true) {
+                        if (tempAttributes.getIsPrimary() == true) {
                             tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributes.getName() + ")\n");
                         }
                     } else if (tempAttributes.getType().equalsIgnoreCase("Composed")) {
@@ -55,9 +55,10 @@ public class RelationalModelGenerator {
                             TableAttributes tempTableAttributes = new TableAttributes();
                             tempTableAttributes.setName(tempComponent.getName());
                             tempTableAttributes.setDomain(tempComponent.getDomain());
+                            tempTableAttributes.setIsPrimary(tempComponent.getIsPrimary());
                             attributesTableList.add(tempTableAttributes);
                             tempTable.setTableContent(tempTable.getTableContent() + tempComponent.getName() + " " + tempComponent.getDomain() + "(" + tempComponent.getPrecision() + ") \n");
-                            if (tempComponent.isIsPrimary() == true) {
+                            if (tempComponent.getIsPrimary() == true) {
                                 tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY ( " + tempComponent.getName() + " )\n");
                             }
                         }
