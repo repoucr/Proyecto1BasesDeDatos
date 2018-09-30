@@ -39,7 +39,7 @@ public class RelationalModelGenerator {
                     tempTableAttributes.setDomain(tempAttributes.getDomain());
                     attributesTableList.add(tempTableAttributes);
                     tempTable.setTableContent(tempTable.getTableContent() + tempAttributes.getName() + " " + tempAttributes.getDomain() + "(" + tempAttributes.getPrecision() + ") \n");
-                    if (tempAttributes.isIsPrimary() == true) {
+                    if (tempAttributes.getIsPrimary() == true) {
                         tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributes.getName() + ")\n");
                     }
                 } else if (tempAttributes.getType().equalsIgnoreCase("Composed")) {
@@ -51,7 +51,7 @@ public class RelationalModelGenerator {
                         tempTableAttributes.setDomain(tempComponent.getDomain());
                         attributesTableList.add(tempTableAttributes);
                         tempTable.setTableContent(tempTable.getTableContent() + tempComponent.getName() + " " + tempComponent.getDomain() + "(" + tempComponent.getPrecision() + ") \n");
-                        if (tempComponent.isIsPrimary() == true) {
+                        if (tempComponent.getIsPrimary() == true) {
                             tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY ( " + tempComponent.getName() + " )\n");
                         }
                     }

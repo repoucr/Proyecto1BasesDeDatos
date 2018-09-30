@@ -14,6 +14,7 @@ public class TableAttributes {
     private String name;
     private String domain;
     private boolean isPrimary;
+   
 
     public TableAttributes() {
     }
