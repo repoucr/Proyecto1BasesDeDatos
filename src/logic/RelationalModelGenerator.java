@@ -10,6 +10,7 @@ import domain.Component;
 import domain.EntitySets;
 import domain.JsonFile;
 import domain.Table;
+import domain.TableAttributes;
 import java.util.LinkedList;
 import static proyecto1basesdedatos.FXMLDocumentController.jsonFile;
 
@@ -34,12 +35,15 @@ public class RelationalModelGenerator {
                 tempTable.setTableContent("");
                 tempTable.setTableContent(tempTable.getTableContent() + "CREATE TABLE " + tempEntitySets.getName() + "( \n");
                 LinkedList<Attributes> attributesList = tempEntitySets.getAttributes();
-                LinkedList<String> attributesTableList = new LinkedList<>();
+                LinkedList<TableAttributes> attributesTableList = new LinkedList<>();
                 for (int j = 0; j < attributesList.size(); j++) {
 
                     Attributes tempAttributes = attributesList.get(j);
                     if (tempAttributes.getType().equalsIgnoreCase("Simple")) {
-                        attributesTableList.add(tempAttributes.getName());
+                        TableAttributes tempTableAttributes = new TableAttributes();
+                        tempTableAttributes.setName(tempAttributes.getName());
+                        tempTableAttributes.setDomain(tempAttributes.getDomain());
+                        attributesTableList.add(tempTableAttributes);
                         tempTable.setTableContent(tempTable.getTableContent() + tempAttributes.getName() + " " + tempAttributes.getDomain() + "(" + tempAttributes.getPrecision() + ") \n");
                         if (tempAttributes.isIsPrimary() == true) {
                             tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributes.getName() + ")\n");
@@ -48,7 +52,10 @@ public class RelationalModelGenerator {
                         LinkedList<Component> componentList = tempAttributes.getComponentList();
                         for (int k = 0; k < componentList.size(); k++) {
                             Component tempComponent = componentList.get(k);
-                            attributesTableList.add(tempComponent.getName());
+                            TableAttributes tempTableAttributes = new TableAttributes();
+                            tempTableAttributes.setName(tempComponent.getName());
+                            tempTableAttributes.setDomain(tempComponent.getDomain());
+                            attributesTableList.add(tempTableAttributes);
                             tempTable.setTableContent(tempTable.getTableContent() + tempComponent.getName() + " " + tempComponent.getDomain() + "(" + tempComponent.getPrecision() + ") \n");
                             if (tempComponent.isIsPrimary() == true) {
                                 tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY ( " + tempComponent.getName() + " )\n");

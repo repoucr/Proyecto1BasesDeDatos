@@ -15,12 +15,12 @@ public class Table {
     
     private String name;
     private String tableContent;
-    private LinkedList<String> attributes;
+    private LinkedList<TableAttributes> attributes;
 
     public Table() {
     }
 
-    public Table(String name, String tableContent, LinkedList<String> attributes) {
+    public Table(String name, String tableContent, LinkedList<TableAttributes> attributes) {
         this.name = name;
         this.tableContent = tableContent;
         this.attributes = attributes;
@@ -42,14 +42,11 @@ public class Table {
         this.tableContent = tableContent;
     }
 
-    public LinkedList<String> getAttributes() {
+    public LinkedList<TableAttributes> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(LinkedList<String> attributes) {
+    public void setAttributes(LinkedList<TableAttributes> attributes) {
         this.attributes = attributes;
     }
-
-    
-
 }
