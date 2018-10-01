@@ -8,14 +8,19 @@ import domain.JsonFile;
 import domain.RelationshipSets;
 import domain.Table;
 import domain.TableAttributes;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import javafx.stage.FileChooser;
 import static proyecto1basesdedatos.FXMLDocumentController.jsonFile;
 
 public class RelationalModelGenerator {
 
     private String relationalModelText = "";
 
-    public void entityGenerator() {
+    public void entityGenerator() throws IOException {
         JsonFile jsonFileObject = jsonFile;
         LinkedList<Table> tableList = new LinkedList<>();
         LinkedList<EntitySets> entitySetList = jsonFileObject.getEntitySets();
@@ -66,7 +71,7 @@ public class RelationalModelGenerator {
             RelationshipSets tempRelationshipSets = relationSetLists.get(i);
             if (tempRelationshipSets.getType().equalsIgnoreCase("Strong")) {
                 Table tempTable = new Table();
-                
+
                 //no funciona el nombre
                 tempTable.setName(tempRelationshipSets.getName());
                 tempTable.setType(tempRelationshipSets.getType());
@@ -100,7 +105,21 @@ public class RelationalModelGenerator {
 
         }
         for (int i = 0; i < tableList.size(); i++) {
-            System.out.println(tableList.get(i).getTableContent());
+//            System.out.println(tableList.get(i).getTableContent());
+            relationalModelText += tableList.get(i).getTableContent();
         }
+
+        FileChooser saveProyect = new FileChooser();
+        saveProyect.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQL (*.sql)", "*.sql"));
+        File file = saveProyect.showSaveDialog(null);
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SQL (*.sql)", "*.sql");
+        saveProyect.getExtensionFilters().add(extFilter);
+        if (!file.getName().contains(".")) {
+            file = new File(file.getAbsolutePath() + ".sql");
+        }
+        FileWriter fileWriter = null;
+        fileWriter = new FileWriter(file);
+        fileWriter.write(relationalModelText);
+        fileWriter.close();
     }
 }
