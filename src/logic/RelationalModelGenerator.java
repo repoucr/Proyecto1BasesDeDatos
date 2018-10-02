@@ -39,20 +39,27 @@ public class RelationalModelGenerator {
             if (tempEntitySets.getParentEntitySet() != null) {
                 for (int j = 0; j < tableList.size(); j++) {
                     if (tableList.get(j).getName().equalsIgnoreCase(tempEntitySets.getParentEntitySet())) {
-                        LinkedList <TableAttributes> tempAttributesList = tableList.get(j).getAttributes();
+                        Table auxTable = tableList.get(j);
+                        LinkedList <TableAttributes> tempAttributesList = auxTable.getAttributes();
+//                        System.out.println(tempAttributesList.size());
                         for (int k = 0; k < tempAttributesList.size(); k++) {
-                            if (tempAttributesList.get(k).getIsPrimary()) {
+                            if (tempAttributesList.get(k).getIsPrimary()==true) {
+                                
                                 TableAttributes auxTableAttributes = new TableAttributes();
                                 auxTableAttributes.setName(tempAttributesList.get(k).getName());
                                 auxTableAttributes.setDomain(tempAttributesList.get(k).getDomain());
                                 auxTableAttributes.setPresicion(tempAttributesList.get(k).getPresicion());
                                 auxTableAttributes.setIsPrimary(true);
                                 auxTableAttributes.setIsForeign(true);
-                                tempTable.getAttributes().add(auxTableAttributes);
-                                tempTable.setTableContent(tempTable.getTableContent() + auxTableAttributes.getName() + " " + auxTableAttributes.getDomain() + "(" + auxTableAttributes.getPresicion() + ") \n");
-                                tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + auxTableAttributes.getName() + ")\n");
+//                               
+
+//                                LinkedList<TableAttributes> tempTableAttributes = auxTable.getAttributes();
+//                                tempTableAttributes.add(auxTableAttributes);
+//                                tempTable.setAttributes(tempTableAttributes);
+                                tempTable.setTableContent( tempTable.getTableContent() + tempAttributesList.get(k).getName() + " " + tempAttributesList.get(k).getDomain() + "(" + tempAttributesList.get(k).getPresicion() + ") \n");
+                                tempTable.setTableContent( tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributesList.get(k).getName() + ")\n");
                                 
-                                tempTable.setTableContent(tempTable.getTableContent() + "FOREIGN KEY (" + tempEntitySets.getParentEntitySet() + ")\n" ) ;
+                                tempTable.setTableContent( tempTable.getTableContent() + "FOREIGN KEY (" + tempEntitySets.getParentEntitySet() + ")\n" ) ;
                             }
                         }                        
                     }
@@ -66,11 +73,14 @@ public class RelationalModelGenerator {
                     tempTableAttributes.setName(tempAttributes.getName());
                     tempTableAttributes.setDomain(tempAttributes.getDomain());
                     tempTableAttributes.setPresicion(tempAttributes.getPrecision());
-                    attributesTableList.add(tempTableAttributes);
+                    
+                    
                     tempTable.setTableContent(tempTable.getTableContent() + tempAttributes.getName() + " " + tempAttributes.getDomain() + "(" + tempAttributes.getPrecision() + ") \n");
                     if (tempAttributes.getIsPrimary() == true) {
+                        tempTableAttributes.setIsPrimary(true);
                         tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributes.getName() + ")\n");
                     }
+                    attributesTableList.add(tempTableAttributes);
                 } else if (tempAttributes.getType().equalsIgnoreCase("Composed")) {
                     LinkedList<Component> componentList = tempAttributes.getComponentList();
                     for (int k = 0; k < componentList.size(); k++) {
@@ -88,7 +98,7 @@ public class RelationalModelGenerator {
                 }
             }
             tempTable.setAttributes(attributesTableList);
-            tempTable.setTableContent(tempTable.getTableContent() + " );");
+            tempTable.setTableContent(tempTable.getTableContent() + " );\n\n\n");
             tableList.add(tempTable);
 
         }
@@ -124,7 +134,7 @@ public class RelationalModelGenerator {
                 }
 
                 tempTable.setAttributes(attributesList);
-                tempTable.setTableContent(tempTable.getTableContent() + " );");
+                tempTable.setTableContent(tempTable.getTableContent() + " );\n\n\n");
                 tableList.add(tempTable);
             }
 
