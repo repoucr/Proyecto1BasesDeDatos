@@ -16,5 +16,6 @@
          </font>
       </Label>
       <Button fx:id="nosotrosButton" layoutX="14.0" layoutY="494.0" mnemonicParsing="false" onMouseClicked="#aboutUsButton" text="About us" />
+      <Label fx:id="messageLabel" layoutX="147.0" layoutY="477.0" prefHeight="17.0" prefWidth="262.0" />
     </children>
 </AnchorPane>

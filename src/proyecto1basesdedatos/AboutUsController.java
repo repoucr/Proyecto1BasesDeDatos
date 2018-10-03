@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,6 +43,7 @@ public class AboutUsController implements Initializable {
         image = new Image("/images/database.png");
         imageView.setImage(image);
         backButton.setEffect(new ImageInput(new Image("/images/back.png")));
+        backButton.setTooltip(new Tooltip("Click to go back to the main window"));
     }    
 
     @FXML

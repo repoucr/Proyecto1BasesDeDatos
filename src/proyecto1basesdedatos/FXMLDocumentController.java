@@ -41,6 +41,8 @@ public class FXMLDocumentController implements Initializable {
     private Button nosotrosButton;
     @FXML
     private TextArea jsonInputTextArea;
+    @FXML
+    private Label messageLabel;
     public static JsonFile jsonFile = new JsonFile();
     private Image image;
 
@@ -52,16 +54,19 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     public void cargarButton(ActionEvent event) throws Exception {
+        if (jsonInputTextArea.getText().equals("")) {
+            messageLabel.setText("Please drop an JSON type text.");
+        } else {
         jsonFile = jsonAdmin.readJson(jsonInputTextArea.getText());
         relationalModelGenerator.entityGenerator();
+        messageLabel.setText("The script has been generated correctly.");
+        }
     }
      @FXML
     private void aboutUsButton(MouseEvent event) throws IOException {
          Parent parent = FXMLLoader.load(getClass().getResource("AboutUs.fxml"));
         Scene scene = new Scene(parent);
-        //Esta linea obtiene la informacion del Stage
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        window.getIcons().add(new Image("/imagen/libros.png"));       
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();     
         window.setScene(scene);
         window.show();
     }
