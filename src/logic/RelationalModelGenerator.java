@@ -14,7 +14,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.LinkedList;
 import javafx.stage.FileChooser;
 import static proyecto1basesdedatos.FXMLDocumentController.jsonFile;
@@ -22,8 +21,9 @@ import static proyecto1basesdedatos.FXMLDocumentController.jsonFile;
 public class RelationalModelGenerator {
 
     private String relationalModelText = "";
+    public static String message = "";
 
-    public void entityGenerator() throws IOException {
+    public String entityGenerator() throws IOException {
         JsonFile jsonFileObject = jsonFile;
         Random random = new Random();
         LinkedList<Table> tableList = new LinkedList<>();
@@ -243,8 +243,8 @@ public class RelationalModelGenerator {
             relationalModelText += ");\n\n\n";
 
         }
-
-        FileChooser saveProyect = new FileChooser();
+        try {
+             FileChooser saveProyect = new FileChooser();
         saveProyect.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQL (*.sql)", "*.sql"));
         File file = saveProyect.showSaveDialog(null);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SQL (*.sql)", "*.sql");
@@ -256,5 +256,10 @@ public class RelationalModelGenerator {
         fileWriter = new FileWriter(file);
         fileWriter.write(relationalModelText);
         fileWriter.close();
+        } catch (NullPointerException npe) {
+            message = "Please select a specific path.";
+        }
+        return message;
+      
     }
 }
