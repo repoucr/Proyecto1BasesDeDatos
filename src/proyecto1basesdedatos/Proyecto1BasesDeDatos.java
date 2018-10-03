@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import logic.Random;
 
 /**
  *
@@ -26,6 +25,7 @@ public class Proyecto1BasesDeDatos extends Application {
         stage.setScene(scene);
         stage.show();
         stage.getIcons().add(new Image("/images/base.png")); 
+        stage.setTitle("SQL Generator");
     }
 
     /**
@@ -33,6 +33,7 @@ public class Proyecto1BasesDeDatos extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        
 
     }
     
