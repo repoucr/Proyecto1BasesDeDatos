@@ -5,6 +5,7 @@ import domain.Component;
 import domain.DescriptiveAttributes;
 import domain.EntitySets;
 import domain.JsonFile;
+import domain.ParticipationEntities;
 import domain.RelationshipSets;
 import domain.Table;
 import domain.TableAttributes;
@@ -35,33 +36,29 @@ public class RelationalModelGenerator {
             tempTable.setTableContent(tempTable.getTableContent() + "CREATE TABLE " + tempEntitySets.getName() + "( \n");
             LinkedList<Attributes> attributesList = tempEntitySets.getAttributes();
             LinkedList<TableAttributes> attributesTableList = new LinkedList<>();
-            
+
             if (tempEntitySets.getParentEntitySet() != null) {
                 for (int j = 0; j < tableList.size(); j++) {
                     if (tableList.get(j).getName().equalsIgnoreCase(tempEntitySets.getParentEntitySet())) {
                         Table auxTable = tableList.get(j);
-                        LinkedList <TableAttributes> tempAttributesList = auxTable.getAttributes();
+                        LinkedList<TableAttributes> tempAttributesList = auxTable.getAttributes();
 //                        System.out.println(tempAttributesList.size());
                         for (int k = 0; k < tempAttributesList.size(); k++) {
-                            if (tempAttributesList.get(k).getIsPrimary()==true) {
-                                
+                            if (tempAttributesList.get(k).getIsPrimary() == true) {
                                 TableAttributes auxTableAttributes = new TableAttributes();
                                 auxTableAttributes.setName(tempAttributesList.get(k).getName());
                                 auxTableAttributes.setDomain(tempAttributesList.get(k).getDomain());
                                 auxTableAttributes.setPresicion(tempAttributesList.get(k).getPresicion());
-                                auxTableAttributes.setIsPrimary(true);
+//                                auxTableAttributes.setIsPrimary(true);
                                 auxTableAttributes.setIsForeign(true);
-//                               
-
-//                                LinkedList<TableAttributes> tempTableAttributes = auxTable.getAttributes();
-//                                tempTableAttributes.add(auxTableAttributes);
-//                                tempTable.setAttributes(tempTableAttributes);
-                                tempTable.setTableContent( tempTable.getTableContent() + tempAttributesList.get(k).getName() + " " + tempAttributesList.get(k).getDomain() + "(" + tempAttributesList.get(k).getPresicion() + ") \n");
-                                tempTable.setTableContent( tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributesList.get(k).getName() + ")\n");
-                                
-                                tempTable.setTableContent( tempTable.getTableContent() + "FOREIGN KEY (" + tempEntitySets.getParentEntitySet() + ")\n" ) ;
+                                LinkedList<TableAttributes> tempTableAttributes = auxTable.getAttributes();
+                                tempTableAttributes.add(auxTableAttributes);
+                                tempTable.setAttributes(tempTableAttributes);
+                                tempTable.setTableContent(tempTable.getTableContent() + tempAttributesList.get(k).getName() + " " + tempAttributesList.get(k).getDomain() + "(" + tempAttributesList.get(k).getPresicion() + ") \n");
+                                tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributesList.get(k).getName() + ")\n");
+                                tempTable.setTableContent(tempTable.getTableContent() + "FOREIGN KEY (" + tempAttributesList.get(k).getName() + ") REFERENCES " + tempEntitySets.getParentEntitySet() + "\n");
                             }
-                        }                        
+                        }
                     }
                 }
             }
@@ -73,8 +70,7 @@ public class RelationalModelGenerator {
                     tempTableAttributes.setName(tempAttributes.getName());
                     tempTableAttributes.setDomain(tempAttributes.getDomain());
                     tempTableAttributes.setPresicion(tempAttributes.getPrecision());
-                    
-                    
+
                     tempTable.setTableContent(tempTable.getTableContent() + tempAttributes.getName() + " " + tempAttributes.getDomain() + "(" + tempAttributes.getPrecision() + ") \n");
                     if (tempAttributes.getIsPrimary() == true) {
                         tempTableAttributes.setIsPrimary(true);
@@ -106,14 +102,36 @@ public class RelationalModelGenerator {
             RelationshipSets tempRelationshipSets = relationSetLists.get(i);
             if (tempRelationshipSets.getType().equalsIgnoreCase("Strong")) {
                 Table tempTable = new Table();
-
-                //no funciona el nombre
+                LinkedList<TableAttributes> attributesList = new LinkedList<>();
                 tempTable.setName(tempRelationshipSets.getName());
                 tempTable.setType(tempRelationshipSets.getType());
                 tempTable.setTableContent("");
                 tempTable.setTableContent(tempTable.getTableContent() + "CREATE TABLE " + tempRelationshipSets.getName() + "( \n");
+                LinkedList<ParticipationEntities> tempParticipationEntities = tempRelationshipSets.getParticipationEntities();
+                for (int j = 0; j < tempParticipationEntities.size(); j++) {
+                    ParticipationEntities temEntities = tempParticipationEntities.get(j);
+                    for (int k = 0; k < tableList.size(); k++) {
+                        if (temEntities.getEntityName().equalsIgnoreCase(tableList.get(k).getName())) {
+                            LinkedList<TableAttributes> auxAttributesList = tableList.get(k).getAttributes();
+                            for (int l = 0; l < auxAttributesList.size(); l++) {
+                                if (auxAttributesList.get(l).getIsPrimary()) {
+                                    TableAttributes auxAttribute = new TableAttributes();
+                                    auxAttribute.setName(auxAttributesList.get(l).getName());
+                                    auxAttribute.setDomain(auxAttributesList.get(l).getDomain());
+                                    auxAttribute.setPresicion(auxAttributesList.get(l).getPresicion());
+                                    auxAttribute.setIsForeign(true);
+                                    auxAttribute.setIsPrimary(true);
+                                    tempTable.setTableContent(tempTable.getTableContent() + auxAttribute.getName() + " " +  auxAttribute.getDomain() + "(" +  auxAttribute.getPresicion() + ") \n");
+                                    tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" +  auxAttribute.getName() + ")\n");
+                                    tempTable.setTableContent(tempTable.getTableContent() + "FOREIGN KEY (" + auxAttribute.getName() + ") REFERENCES " + temEntities.getEntityName() + "\n");
+
+                                }
+                            }
+                        }
+                    }
+                }
                 LinkedList<DescriptiveAttributes> tempDescripAttribut = tempRelationshipSets.getDescriptiveAttributes();
-                LinkedList<TableAttributes> attributesList = new LinkedList<>();
+
                 if (tempDescripAttribut != null) {
                     for (int j = 0; j < tempDescripAttribut.size(); j++) {
                         DescriptiveAttributes auxDescriptiveAttributes = tempDescripAttribut.get(j);
