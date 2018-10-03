@@ -26,7 +26,7 @@ public class Random {
 
         int startText = (int) (Math.random() * 1000);
 
-        String randomText = text.substring(startText, startText + size);
+        String randomText = "'"+text.substring(startText, startText + size)+"'";
 
         return randomText;
     }
@@ -44,11 +44,11 @@ public class Random {
     public String stringGenerator(int size){
         System.out.println(size);
         String text="abcdefghijklmnopqrstuvwxyz";
-        String randomString = "" ;
+        String randomString = "'" ;
         for (int i = 0; i < size; i++) {
             int random = (int) (Math.random() * 26);
             randomString+= text.substring(random,random+1);
         }
-        return randomString;
+        return randomString+"'";
     }
 }
