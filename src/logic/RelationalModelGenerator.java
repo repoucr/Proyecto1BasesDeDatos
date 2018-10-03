@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.logging.Level;
 import javafx.stage.FileChooser;
 import static proyecto1basesdedatos.FXMLDocumentController.jsonFile;
 
@@ -23,6 +22,7 @@ public class RelationalModelGenerator {
 
     public void entityGenerator() throws IOException {
         JsonFile jsonFileObject = jsonFile;
+        Random random = new Random();
         LinkedList<Table> tableList = new LinkedList<>();
         LinkedList<EntitySets> entitySetList = jsonFileObject.getEntitySets();
         LinkedList<RelationshipSets> relationSetLists = jsonFileObject.getRelationshipSets();
@@ -42,14 +42,14 @@ public class RelationalModelGenerator {
                     if (tableList.get(j).getName().equalsIgnoreCase(tempEntitySets.getParentEntitySet())) {
                         Table auxTable = tableList.get(j);
                         LinkedList<TableAttributes> tempAttributesList = auxTable.getAttributes();
-//                        System.out.println(tempAttributesList.size());
                         for (int k = 0; k < tempAttributesList.size(); k++) {
                             if (tempAttributesList.get(k).getIsPrimary() == true) {
                                 TableAttributes auxTableAttributes = new TableAttributes();
                                 auxTableAttributes.setName(tempAttributesList.get(k).getName());
                                 auxTableAttributes.setDomain(tempAttributesList.get(k).getDomain());
                                 auxTableAttributes.setPresicion(tempAttributesList.get(k).getPresicion());
-//                                auxTableAttributes.setIsPrimary(true);
+                              auxTableAttributes.setContent(tempAttributesList.get(k).getContent());
+                                //auxTableAttributes.setIsPrimary(true);
                                 auxTableAttributes.setIsForeign(true);
                                 LinkedList<TableAttributes> tempTableAttributes = auxTable.getAttributes();
                                 tempTableAttributes.add(auxTableAttributes);
@@ -71,6 +71,16 @@ public class RelationalModelGenerator {
                     tempTableAttributes.setDomain(tempAttributes.getDomain());
                     tempTableAttributes.setPresicion(tempAttributes.getPrecision());
 
+                    if (tempAttributes.getDomain().equalsIgnoreCase("int")) {
+                        tempTableAttributes.setContent(random.numberGenerator(7));
+                    } else if (tempAttributes.getDomain().equalsIgnoreCase("smallint")) {
+                        tempTableAttributes.setContent(random.numberGenerator(4));
+                    } else if (tempAttributes.getDomain().equalsIgnoreCase("numeric")) {
+                        tempTableAttributes.setContent(random.numberGenerator(tempAttributes.getPrecision()));
+                    } else if (tempAttributes.getDomain().equalsIgnoreCase("varchar")) {
+                        tempTableAttributes.setContent(random.wordGenerator(tempAttributes.getPrecision()));
+                    }
+
                     tempTable.setTableContent(tempTable.getTableContent() + tempAttributes.getName() + " " + tempAttributes.getDomain() + "(" + tempAttributes.getPrecision() + ") \n");
                     if (tempAttributes.getIsPrimary() == true) {
                         tempTableAttributes.setIsPrimary(true);
@@ -85,6 +95,17 @@ public class RelationalModelGenerator {
                         tempTableAttributes.setName(tempComponent.getName());
                         tempTableAttributes.setDomain(tempComponent.getDomain());
                         tempTableAttributes.setPresicion(tempComponent.getPrecision());
+
+                        if (tempComponent.getDomain().equalsIgnoreCase("int")) {
+                            tempTableAttributes.setContent(random.numberGenerator(7));
+                        } else if (tempComponent.getDomain().equalsIgnoreCase("smallint")) {
+                            tempTableAttributes.setContent(random.numberGenerator(4));
+                        } else if (tempComponent.getDomain().equalsIgnoreCase("numeric")) {
+                            tempTableAttributes.setContent(random.numberGenerator(tempAttributes.getPrecision()));
+                        } else if (tempComponent.getDomain().equalsIgnoreCase("varchar")) {
+                            tempTableAttributes.setContent(random.wordGenerator(tempAttributes.getPrecision()));
+                        }
+
                         attributesTableList.add(tempTableAttributes);
                         tempTable.setTableContent(tempTable.getTableContent() + tempComponent.getName() + " " + tempComponent.getDomain() + "(" + tempComponent.getPrecision() + ") \n");
                         if (tempComponent.getIsPrimary() == true) {
@@ -118,13 +139,14 @@ public class RelationalModelGenerator {
                                     TableAttributes auxAttribute = new TableAttributes();
                                     auxAttribute.setName(auxAttributesList.get(l).getName());
                                     auxAttribute.setDomain(auxAttributesList.get(l).getDomain());
+                                    auxAttribute.setContent(auxAttributesList.get(l).getContent());
                                     auxAttribute.setPresicion(auxAttributesList.get(l).getPresicion());
                                     auxAttribute.setIsForeign(true);
                                     auxAttribute.setIsPrimary(true);
-                                    tempTable.setTableContent(tempTable.getTableContent() + auxAttribute.getName() + " " +  auxAttribute.getDomain() + "(" +  auxAttribute.getPresicion() + ") \n");
-                                    tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" +  auxAttribute.getName() + ")\n");
+                                    tempTable.setTableContent(tempTable.getTableContent() + auxAttribute.getName() + " " + auxAttribute.getDomain() + "(" + auxAttribute.getPresicion() + ") \n");
+                                    tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + auxAttribute.getName() + ")\n");
                                     tempTable.setTableContent(tempTable.getTableContent() + "FOREIGN KEY (" + auxAttribute.getName() + ") REFERENCES " + temEntities.getEntityName() + "\n");
-
+                                    attributesList.add(auxAttribute);
                                 }
                             }
                         }
@@ -140,6 +162,17 @@ public class RelationalModelGenerator {
                             auxTableAttributes.setName(auxDescriptiveAttributes.getName());
                             auxTableAttributes.setDomain(auxDescriptiveAttributes.getDomain());
                             auxTableAttributes.setIsPrimary(auxDescriptiveAttributes.isIsPrimary());
+
+                            if (auxDescriptiveAttributes.getDomain().equalsIgnoreCase("int")) {
+                                auxTableAttributes.setContent(random.numberGenerator(7));
+                            } else if (auxDescriptiveAttributes.getDomain().equalsIgnoreCase("smallint")) {
+                                auxTableAttributes.setContent(random.numberGenerator(4));
+                            } else if (auxDescriptiveAttributes.getDomain().equalsIgnoreCase("numeric")) {
+                                auxTableAttributes.setContent(random.numberGenerator(auxDescriptiveAttributes.getPrecision()));
+                            } else if (auxDescriptiveAttributes.getDomain().equalsIgnoreCase("varchar")) {
+                                auxTableAttributes.setContent(random.wordGenerator(auxDescriptiveAttributes.getPrecision()));
+                            }
+
                             attributesList.add(auxTableAttributes);
 
                             tempTable.setTableContent(tempTable.getTableContent() + auxDescriptiveAttributes.getName() + " " + auxDescriptiveAttributes.getDomain() + "(" + auxDescriptiveAttributes.getPrecision() + ") \n");
@@ -158,9 +191,20 @@ public class RelationalModelGenerator {
 
         }
         for (int i = 0; i < tableList.size(); i++) {
-//            System.out.println(tableList.get(i).getTableContent());
             relationalModelText += tableList.get(i).getTableContent();
+            
+            LinkedList<TableAttributes> tableAttributesList = tableList.get(i).getAttributes();
+             relationalModelText += "INSERT INTO " + tableList.get(i).getName() + "VALUES (";
+            for (int j = 0; j < tableAttributesList.size() ; j++) {
+                relationalModelText += tableAttributesList.get(j).getContent();
+                if (j < tableAttributesList.size()-1  ) {
+                    relationalModelText += ",";
+                }
+            }
+            
+            
         }
+        
 
         FileChooser saveProyect = new FileChooser();
         saveProyect.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQL (*.sql)", "*.sql"));

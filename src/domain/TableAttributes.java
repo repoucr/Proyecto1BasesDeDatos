@@ -15,7 +15,25 @@ public class TableAttributes {
     private String domain;
     private boolean isPrimary;
     private boolean isForeign;
-    private int precision;
+    private int presicion;
+    private String content;
+
+    public TableAttributes() {
+    }
+
+    public TableAttributes(String name, String domain, boolean isPrimary, boolean isForeign, int presicion, String content) {
+        this.name = name;
+        this.domain = domain;
+        this.isPrimary = isPrimary;
+        this.isForeign = isForeign;
+        this.presicion = presicion;
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "TableAttributes{" + "name=" + name + ", domain=" + domain + ", isPrimary=" + isPrimary + ", isForeign=" + isForeign + ", presicion=" + presicion + ", content=" + content + '}';
+    }
 
     public String getName() {
         return name;
@@ -50,28 +68,22 @@ public class TableAttributes {
     }
 
     public int getPresicion() {
-        return precision;
+        return presicion;
     }
 
     public void setPresicion(int presicion) {
-        this.precision = presicion;
+        this.presicion = presicion;
     }
 
-    @Override
-    public String toString() {
-        return "TableAttributes{" + "name=" + name + ", domain=" + domain + ", isPrimary=" + isPrimary + ", isForeign=" + isForeign + ", precision=" + precision + '}';
+    public String getContent() {
+        return content;
     }
 
-    public TableAttributes(String name, String domain, boolean isPrimary, boolean isForeign, int presicion) {
-        this.name = name;
-        this.domain = domain;
-        this.isPrimary = isPrimary;
-        this.isForeign = isForeign;
-        this.precision = presicion;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public TableAttributes() {
-    }
+   
   
 
 }
