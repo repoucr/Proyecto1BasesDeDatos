@@ -58,13 +58,13 @@ public class RelationalModelGenerator {
                                 tempTableAttributes.add(auxTableAttributes);
                                 tempTable.setAttributes(tempTableAttributes);
                                 tempTable.setTableContent(tempTable.getTableContent() + auxTableAttributes.getName() + " " + auxTableAttributes.getDomain());
-                                if(!auxTableAttributes.getDomain().equalsIgnoreCase("int")){
-                                    tempTable.setTableContent(tempTable.getTableContent() + "(" + auxTableAttributes.getPresicion() + ") \n");
-                                }else{
-                                    tempTable.setTableContent(tempTable.getTableContent() + "\n");
+                                if (!auxTableAttributes.getDomain().equalsIgnoreCase("int") || !auxTableAttributes.getDomain().equalsIgnoreCase("datetime")) {
+                                    tempTable.setTableContent(tempTable.getTableContent() + "(" + auxTableAttributes.getPresicion() + "), \n");
+                                } else {
+                                    tempTable.setTableContent(tempTable.getTableContent() + ",\n");
                                 }
-                                tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + auxTableAttributes.getName() + ")\n");
-                                tempTable.setTableContent(tempTable.getTableContent() + "FOREIGN KEY (" + auxTableAttributes.getName() + ") REFERENCES " + tempEntitySets.getParentEntitySet() + "\n");
+                                tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + auxTableAttributes.getName() + "),\n");
+                                tempTable.setTableContent(tempTable.getTableContent() + "FOREIGN KEY (" + auxTableAttributes.getName() + ") REFERENCES " + tempEntitySets.getParentEntitySet() + ",\n");
                             }
                         }
                     }
@@ -94,16 +94,15 @@ public class RelationalModelGenerator {
                     }
 
                     tempTable.setTableContent(tempTable.getTableContent() + tempAttributes.getName() + " " + tempAttributes.getDomain());
-                    if(!tempAttributes.getDomain().equalsIgnoreCase("int")){
-                        tempTable.setTableContent(tempTable.getTableContent() + "(" + tempAttributes.getPrecision() + ") \n");
-                    }else{
-                        tempTable.setTableContent(tempTable.getTableContent() +"\n");
+                    if (!tempAttributes.getDomain().equalsIgnoreCase("int") || !tempAttributes.getDomain().equalsIgnoreCase("datetime")) {
+                        tempTable.setTableContent(tempTable.getTableContent() + "(" + tempAttributes.getPrecision() + "), \n");
+                    } else {
+                        tempTable.setTableContent(tempTable.getTableContent() + ",\n");
                     }
-                            
-                           
+
                     if (tempAttributes.getIsPrimary() == true) {
                         tempTableAttributes.setIsPrimary(true);
-                        tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributes.getName() + ")\n");
+                        tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + tempAttributes.getName() + "),\n");
                     }
                     attributesTableList.add(tempTableAttributes);
                 } else if (tempAttributes.getType().equalsIgnoreCase("Composed")) {
@@ -114,7 +113,7 @@ public class RelationalModelGenerator {
                         tempTableAttributes.setName(tempComponent.getName());
                         tempTableAttributes.setDomain(tempComponent.getDomain());
                         tempTableAttributes.setPresicion(tempComponent.getPrecision());
-                        
+
                         if (tempComponent.getDomain().equalsIgnoreCase("int")) {
                             tempTableAttributes.setContent(random.numberGenerator(7));
                         } else if (tempComponent.getDomain().equalsIgnoreCase("smallint")) {
@@ -130,9 +129,14 @@ public class RelationalModelGenerator {
                         }
 
                         attributesTableList.add(tempTableAttributes);
-                        tempTable.setTableContent(tempTable.getTableContent() + tempComponent.getName() + " " + tempComponent.getDomain() + "(" + tempComponent.getPrecision() + ") \n");
+                        tempTable.setTableContent(tempTable.getTableContent() + tempComponent.getName() + " " + tempComponent.getDomain());
+                        if(!tempComponent.getDomain().equalsIgnoreCase("int")||!tempComponent.getDomain().equalsIgnoreCase("datetime")){
+                            tempTable.setTableContent(tempTable.getTableContent() + "(" + tempComponent.getPrecision() + "), \n");
+                        }else{
+                            tempTable.setTableContent(tempTable.getTableContent() + "), \n");
+                        }
                         if (tempComponent.getIsPrimary() == true) {
-                            tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY ( " + tempComponent.getName() + " )\n");
+                            tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + tempComponent.getName() + "),\n");
                         }
                     }
                 }
@@ -167,13 +171,13 @@ public class RelationalModelGenerator {
                                     auxAttribute.setIsForeign(true);
                                     auxAttribute.setIsPrimary(true);
                                     tempTable.setTableContent(tempTable.getTableContent() + auxAttribute.getName() + " " + auxAttribute.getDomain());
-                                    if(!auxAttribute.getDomain().equalsIgnoreCase("int")){
-                                        tempTable.setTableContent(tempTable.getTableContent() + "(" + auxAttribute.getPresicion() + ") \n");
-                                    }else{
-                                        tempTable.setTableContent(tempTable.getTableContent() + "\n");
+                                    if (!auxAttribute.getDomain().equalsIgnoreCase("int") || !auxAttribute.getDomain().equalsIgnoreCase("datetime")) {
+                                        tempTable.setTableContent(tempTable.getTableContent() + "(" + auxAttribute.getPresicion() + "), \n");
+                                    } else {
+                                        tempTable.setTableContent(tempTable.getTableContent() + ",\n");
                                     }
-                                    tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + auxAttribute.getName() + ")\n");
-                                    tempTable.setTableContent(tempTable.getTableContent() + "FOREIGN KEY (" + auxAttribute.getName() + ") REFERENCES " + temEntities.getEntityName() + "\n");
+                                    tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + auxAttribute.getName() + "),\n");
+                                    tempTable.setTableContent(tempTable.getTableContent() + "FOREIGN KEY (" + auxAttribute.getName() + "), REFERENCES " + temEntities.getEntityName() + "\n");
                                     attributesList.add(auxAttribute);
                                 }
                             }
@@ -190,7 +194,7 @@ public class RelationalModelGenerator {
                             auxTableAttributes.setName(auxDescriptiveAttributes.getName());
                             auxTableAttributes.setDomain(auxDescriptiveAttributes.getDomain());
                             auxTableAttributes.setIsPrimary(auxDescriptiveAttributes.isIsPrimary());
-                            
+
                             if (auxDescriptiveAttributes.getDomain().equalsIgnoreCase("int")) {
                                 auxTableAttributes.setContent(random.numberGenerator(7));
                             } else if (auxDescriptiveAttributes.getDomain().equalsIgnoreCase("smallint")) {
@@ -206,10 +210,14 @@ public class RelationalModelGenerator {
                             }
                             attributesList.add(auxTableAttributes);
 
-                            tempTable.setTableContent(tempTable.getTableContent() + auxDescriptiveAttributes.getName() + " " + auxDescriptiveAttributes.getDomain() + "(" + auxDescriptiveAttributes.getPrecision() + ") \n");
-
+                            tempTable.setTableContent(tempTable.getTableContent() + auxDescriptiveAttributes.getName() + " " + auxDescriptiveAttributes.getDomain());
+                            if (!auxDescriptiveAttributes.getDomain().equalsIgnoreCase("int") || !auxDescriptiveAttributes.getDomain().equalsIgnoreCase("datetime")) {
+                                tempTable.setTableContent(tempTable.getTableContent() + "(" + auxDescriptiveAttributes.getPrecision() + "), \n");
+                            }else{
+                                tempTable.setTableContent(tempTable.getTableContent() + "), \n");
+                            }
                             if (auxDescriptiveAttributes.isIsPrimary() == true) {
-                                tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY ( " + auxDescriptiveAttributes.getName() + " )\n");
+                                tempTable.setTableContent(tempTable.getTableContent() + "PRIMARY KEY (" + auxDescriptiveAttributes.getName() + "),\n");
                             }
                         }
                     }
