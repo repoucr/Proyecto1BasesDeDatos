@@ -58,7 +58,7 @@ public class RelationalModelGenerator {
                                 tempTableAttributes.add(auxTableAttributes);
                                 tempTable.setAttributes(tempTableAttributes);
                                 tempTable.setTableContent(tempTable.getTableContent() + auxTableAttributes.getName() + " " + auxTableAttributes.getDomain());
-                                if (!auxTableAttributes.getDomain().equalsIgnoreCase("int") || !auxTableAttributes.getDomain().equalsIgnoreCase("datetime")) {
+                                if (!(auxTableAttributes.getDomain().equalsIgnoreCase("int") || auxTableAttributes.getDomain().equalsIgnoreCase("datetime"))) {
                                     tempTable.setTableContent(tempTable.getTableContent() + "(" + auxTableAttributes.getPresicion() + "), \n");
                                 } else {
                                     tempTable.setTableContent(tempTable.getTableContent() + ",\n");
@@ -94,7 +94,7 @@ public class RelationalModelGenerator {
                     }
 
                     tempTable.setTableContent(tempTable.getTableContent() + tempAttributes.getName() + " " + tempAttributes.getDomain());
-                    if (!tempAttributes.getDomain().equalsIgnoreCase("int") || !tempAttributes.getDomain().equalsIgnoreCase("datetime")) {
+                    if (!(tempAttributes.getDomain().equalsIgnoreCase("int") || tempAttributes.getDomain().equalsIgnoreCase("datetime"))) {
                         tempTable.setTableContent(tempTable.getTableContent() + "(" + tempAttributes.getPrecision() + "), \n");
                     } else {
                         tempTable.setTableContent(tempTable.getTableContent() + ",\n");
@@ -130,7 +130,7 @@ public class RelationalModelGenerator {
 
                         attributesTableList.add(tempTableAttributes);
                         tempTable.setTableContent(tempTable.getTableContent() + tempComponent.getName() + " " + tempComponent.getDomain());
-                        if(!tempComponent.getDomain().equalsIgnoreCase("int")||!tempComponent.getDomain().equalsIgnoreCase("datetime")){
+                        if(!(tempComponent.getDomain().equalsIgnoreCase("int")|| tempComponent.getDomain().equalsIgnoreCase("datetime"))){
                             tempTable.setTableContent(tempTable.getTableContent() + "(" + tempComponent.getPrecision() + "), \n");
                         }else{
                             tempTable.setTableContent(tempTable.getTableContent() + "), \n");
@@ -171,7 +171,7 @@ public class RelationalModelGenerator {
                                     auxAttribute.setIsForeign(true);
                                     auxAttribute.setIsPrimary(true);
                                     tempTable.setTableContent(tempTable.getTableContent() + auxAttribute.getName() + " " + auxAttribute.getDomain());
-                                    if (!auxAttribute.getDomain().equalsIgnoreCase("int") || !auxAttribute.getDomain().equalsIgnoreCase("datetime")) {
+                                    if (!(auxAttribute.getDomain().equalsIgnoreCase("int") || auxAttribute.getDomain().equalsIgnoreCase("datetime"))) {
                                         tempTable.setTableContent(tempTable.getTableContent() + "(" + auxAttribute.getPresicion() + "), \n");
                                     } else {
                                         tempTable.setTableContent(tempTable.getTableContent() + ",\n");
@@ -211,7 +211,7 @@ public class RelationalModelGenerator {
                             attributesList.add(auxTableAttributes);
 
                             tempTable.setTableContent(tempTable.getTableContent() + auxDescriptiveAttributes.getName() + " " + auxDescriptiveAttributes.getDomain());
-                            if (!auxDescriptiveAttributes.getDomain().equalsIgnoreCase("int") || !auxDescriptiveAttributes.getDomain().equalsIgnoreCase("datetime")) {
+                            if (!(auxDescriptiveAttributes.getDomain().equalsIgnoreCase("int") || auxDescriptiveAttributes.getDomain().equalsIgnoreCase("datetime"))) {
                                 tempTable.setTableContent(tempTable.getTableContent() + "(" + auxDescriptiveAttributes.getPrecision() + "), \n");
                             }else{
                                 tempTable.setTableContent(tempTable.getTableContent() + "), \n");
