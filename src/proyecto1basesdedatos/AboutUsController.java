@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,10 +34,14 @@ public class AboutUsController implements Initializable {
     @FXML
     private ImageView imageView;
     private Image image;
+    @FXML 
+    private Button backButton;
+            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         image = new Image("/images/database.png");
         imageView.setImage(image);
+        backButton.setEffect(new ImageInput(new Image("/images/back.png")));
     }    
 
     @FXML

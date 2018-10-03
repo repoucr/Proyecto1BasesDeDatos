@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
+import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -70,7 +71,8 @@ public class FXMLDocumentController implements Initializable {
      jsonInputTextArea.setTooltip(new Tooltip("Drop an entity-relationship model text in a JSON format"));
      cargarButton.setTooltip(new Tooltip("Click to generate a script"));
      nosotrosButton.setTooltip(new Tooltip("Information about developers"));
-     
+     cargarButton.setEffect(new ImageInput(new Image("/images/ejecucion.png")));
+     nosotrosButton.setEffect(new ImageInput(new Image("/images/info.png")));
    
     }
 

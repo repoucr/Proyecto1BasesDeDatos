@@ -14,6 +14,6 @@
       <Label layoutX="188.0" layoutY="223.0" text="Proyect #1" />
       <Label layoutX="204.0" layoutY="258.0" text="2018" />
       <ImageView fx:id="imageView" fitHeight="117.0" fitWidth="126.0" layoutX="288.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="14.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#backButton" text="Back" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#backButton" text="Back" />
    </children>
 </AnchorPane>
