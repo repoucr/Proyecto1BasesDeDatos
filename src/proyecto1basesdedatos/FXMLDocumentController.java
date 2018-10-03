@@ -55,7 +55,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void cargarButton(ActionEvent event) throws Exception {
         if (jsonInputTextArea.getText().equals("")) {
-            messageLabel.setText("Please drop an JSON type text.");
+            messageLabel.setText("Please drop a JSON type text.");
         } else {
         jsonFile = jsonAdmin.readJson(jsonInputTextArea.getText());
         relationalModelGenerator.entityGenerator();
