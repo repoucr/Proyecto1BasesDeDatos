@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import logic.Random;
 
@@ -21,12 +22,10 @@ public class Proyecto1BasesDeDatos extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
-
         stage.show();
+        stage.getIcons().add(new Image("/images/base.png")); 
     }
 
     /**
@@ -34,10 +33,7 @@ public class Proyecto1BasesDeDatos extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        
 
-//        Random random = new Random();
-//        System.out.println(random.generaPalabras());
     }
     
 }

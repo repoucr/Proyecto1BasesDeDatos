@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="359.0" prefWidth="433.0" style="-fx-background-color: #6699CC;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyecto1basesdedatos.AboutUsController">
+   <children>
+      <Label layoutX="109.0" layoutY="36.0" text="IF-4100 Fundamentos de Bases de Datos" />
+      <Label layoutX="192.0" layoutY="85.0" text="Students:" />
+      <Label layoutX="145.0" layoutY="122.0" text="Sergio Siles Solano B66851" />
+      <Label layoutX="135.0" layoutY="163.0" text="Wilmer Mata Camacho B54187" />
+      <Label layoutX="188.0" layoutY="223.0" text="Proyect #1" />
+      <Label layoutX="204.0" layoutY="258.0" text="2018" />
+      <ImageView fx:id="imageView" fitHeight="117.0" fitWidth="126.0" layoutX="288.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="14.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#backButton" text="Back" />
+   </children>
+</AnchorPane>
