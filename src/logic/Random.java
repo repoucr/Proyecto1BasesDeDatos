@@ -40,4 +40,15 @@ public class Random {
         }
         return randomNumber;
     }
+    
+    public String stringGenerator(int size){
+        System.out.println(size);
+        String text="abcdefghijklmnopqrstuvwxyz";
+        String randomString = "" ;
+        for (int i = 0; i < size; i++) {
+            int random = (int) (Math.random() * 26);
+            randomString+= text.substring(random,random+1);
+        }
+        return randomString;
+    }
 }
